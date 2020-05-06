@@ -2,7 +2,7 @@
 // dotenv.config();
 
 // in just one line
-require('dotenv').config();
+// require('dotenv').config();
 
 const http = require('http')
 
