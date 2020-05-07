@@ -12,8 +12,14 @@ const parseArgs = require('minimist')
 console.time('measure time');
 
 const args = process.argv.slice(2)
-const name = args[0].split('=')[1];
-console.log(`the name is ${name}`);
+
+try {
+  const name = args[0].split('=')[1];
+  console.log(`the name is ${name}`);
+} catch (error) {
+  // console.error(error);
+  console.log('oh, we had an error spliting around the equal sign');
+}
 
 // using minimist
 // run with:
