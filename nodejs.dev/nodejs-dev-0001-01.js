@@ -9,7 +9,10 @@ const http = require('http')
 const hostname = '127.0.0.1'
 const port = process.env.PORT
 
+const environment = process.env.NODE_ENV || 'development';
+
 console.log(`COLOR from enviroment variable: ${process.env.COLOR}`);
+console.log(`environment: ${environment}`);
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200
