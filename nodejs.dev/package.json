@@ -12,7 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.0.0",
-    "cowsay": "^1.4.0",
     "minimist": "^1.2.5",
     "progress": "^2.0.3"
   },
