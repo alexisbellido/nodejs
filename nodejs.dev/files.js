@@ -47,10 +47,22 @@ fs.readFile(filePath, 'utf8', (err, data) => {
 const content = 'Some content!\n'
 
 outputFile = 'test.txt'
+// could pass flag to append
 fs.writeFile(outputFile, content, err => {
   if (err) {
     console.error(err)
     return
   }
   console.log(`file ${outputFile} written successfully`)
+})
+
+// or use append handy method
+currentDate = new Date();
+let appendContent = `timestamp is: ${currentDate}\n`
+fs.appendFile('file.log', appendContent, err => {
+  if (err) {
+    console.error(err)
+    return
+  }
+  //done!
 })
