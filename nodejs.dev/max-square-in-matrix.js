@@ -1,28 +1,55 @@
 // We need to find the largest square comprising of all ones in the given m×n matrix.
 // In other words we need to find the largest set of connected ones in the given matrix that forms a square.
-const find_max_square_1 = matrix => {
+const findMaxSquareBruteForce = matrix => {
+    // O((mn)^2) worst case
     const rows = matrix.length;
-    const cols = rows > 0 ? matrix[0].length : 0;
+    const cols = matrix[0].length;
     let maxsqlen = 0; // max square size
     // console.log(`rows: ${rows}`);
     // console.log(`cols: ${cols}`);
 
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
-            // row, col
-            // console.log(`${i}, ${j}`);
             if (matrix[i][j] == 1) {
                 // found a 1, calculate size of square starting here
-                // console.log(`${i}, ${j}`);
                 let sqlen = 1;
                 let flag = true;
+                // console.log(`${i}, ${j}`);
+                // while the current square length (sqlen) plus the current i or j is within the matrix and the flag is true
+                while (sqlen + i < rows &&  sqlen + j < cols && flag) {
+                    // loop from current column to last column of current sqlen
+                    for (let k = j; k <= sqlen + 1; k++) {
+                        if (matrix[i + sqlen][k] == 0) {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    // loop from current row to last row of current sqlen
+                    for (let k = i; k <= sqlen + i; k++) {
+                        if (matrix[k][j + sqlen] == 0) {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if (flag) {
+                        sqlen++;
+                    }
+                }
+                if (maxsqlen < sqlen) {
+                    maxsqlen = sqlen;
+                }
             }
         }
     }
+    return maxsqlen;
 
 }
 
 const findMaxSquare = (matrix) => {
+    // Time complexity : O(mn)O(mn). Single pass.
+    // Space complexity : O(mn)O(mn)
+
+    // this will shallow copy so it won't be a real clone
     // const cache = [...matrix];
     const cache = [];
     let result = 0;
@@ -56,25 +83,25 @@ const findMaxSquare = (matrix) => {
             }
         }
     }
-    console.log('cache');
-    console.log(cache);
+    // console.log('cache');
+    // console.log(cache);
     return result;
 
 };
 
-const matrix = [
-    [1, 1, 1, 1, 0],
-    [1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 0],
-];
-
 // const matrix = [
-//     [1, 0, 1, 0, 0],
-//     [1, 0, 1, 1, 1],
+//     [1, 1, 1, 1, 0],
 //     [1, 1, 1, 1, 1],
-//     [1, 0, 0, 1, 0],
+//     [1, 1, 1, 1, 1],
+//     [1, 1, 1, 1, 0],
 // ];
+
+const matrix = [
+    [1, 0, 1, 0, 0],
+    [1, 0, 1, 1, 1],
+    [1, 1, 1, 1, 1],
+    [1, 0, 0, 1, 0],
+];
 
 // const matrix = [
 //     [1, 1],
@@ -85,8 +112,11 @@ const matrix = [
 console.log('matrix');
 console.log(matrix);
 
-const result = findMaxSquare(matrix);
-console.log('result', result);
+const maxSquareBruteForce = findMaxSquareBruteForce(matrix);
+console.log('maxSquareBruteForce', maxSquareBruteForce);
+
+const maxSquare = findMaxSquare(matrix);
+console.log('maxSquare', maxSquare);
 
 // Math.min and Math.max expect numbers but I can spread an array and pass it
 // const nums = [1, 2, 3]
